@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link href="styles.css" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+        <title>Mentees</title>
+    </head>
+    <body>
+        <div id="wrapper">
+            <header>
+                <div id="banner">
+                    <h1>MENTEES LIST</h1>
+                </div>
+            </header>
+            <div id="sort">Sort</div>
+            <div id="add">
+
+                <i class="material-icons">add</i>
+                <h2>Add new mentee</h2>
+                <form id="add_mentee">
+                    Name : <input type="text"><br>
+                    Roll number : <input type="text"><br>
+                    Department : <input type="text"><br>
+                    Rating : <input type="radio" value="1" name="rate"> 1 <input type="radio" value="2" name="rate"> 2 <input type="radio" value="3" name="rate"> 3 <input type="radio" value="4" name="rate"> 4 <input type="radio" value="5" name="rate"> 5<br>
+                    Comments : <input type="text"><br>
+                    <input type="submit" value="Submit" id="add-submit">
+                </form>
+            </div>
+            <div id="list">
+                <ul>
+                    <!-- <li>
+                        <div class="delete">Delete</div>
+                        <div class="name">vedhant</div>
+                        <div class="rating">3</div>
+                        <span class="compress">
+                          <div class="rollno">106117035</div>
+                          <div class="dep">CSE</div>
+                          <div class="comment">Cool</div>
+                          <div class="edit">Edit</div>
+                        </span>
+                    </li> -->
+                </ul>
+            </div>
+        </div>
+
+        <script src="app.js"></script>
+    </body>
+</html>
