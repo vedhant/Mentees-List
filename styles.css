@@ -40,6 +40,7 @@ h2{
 
   cursor: pointer;
   float: center;
+  color: white;
 }
 #sort{
   width:5%;
@@ -62,7 +63,11 @@ h2{
   background-color: rgba(62, 96, 111,1);
   padding: 4px;
 }
+#add_mentee p{
+  width: 6%;
+  display: inline-block;
 
+}
 #add_mentee input[type="text"]{
   width: 40%;
   max-width: 300px;
@@ -76,9 +81,7 @@ h2{
   border: none;
   color: rgba(255,255,255,0.9);
 }
-#add_mentee input[type="radio"]{
-  border: none;
-}
+
 #add_mentee input[type="submit"]{
   background-color: rgb(25, 52, 65);
   border: none;

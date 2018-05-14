@@ -143,15 +143,7 @@ addMentee.addEventListener('submit',function(e){
    e.preventDefault();
    const details = addMentee.querySelectorAll('input[type="text"]');
 
-   const rating_radio = addMentee.querySelectorAll('input[type="radio"]');
-   var rating = 0;
-   for(var i=0;i<rating_radio.length;++i)
-   {
-     if(rating_radio[i].checked)
-     {
-       rating = i+1;
-     }
-   }
+   var rating = findRating();
    const comm = [];
    if(details[3].value){
    comm.push(String(details[3].value));}
@@ -345,3 +337,25 @@ Sort.addEventListener('click',function(e){
     }
   }
 });
+stars = document.querySelectorAll('#add_mentee i');
+for(var i=0;i<stars.length;++i){
+stars[i].addEventListener('click',function(e){
+
+  for(var j=0;j<e.target.getAttribute('name');++j)
+  {
+    stars[j].style.color = 'yellow';
+  }
+  for(;j<6;++j)
+  {
+    stars[j].style.color = 'white';
+  }
+});}
+
+function findRating(){
+    for(var i=0;i<stars.length;++i){
+      if(stars[i].style.color == 'white'){
+        return i;
+      }
+    }
+    return 5;
+}
