@@ -1,17 +1,20 @@
 
 const addMentee = document.forms['add_mentee'];
 const list = document.querySelector('#list ul');
+var ed = false;
 
 loadAll();
 
 function Color(li,rate){
-  console.log(li);
+
   if(rate == 5){
   li.style.backgroundColor = "rgb(83, 166, 93)";
+
   li.querySelector('.name').style.backgroundColor = "rgb(45, 89, 50)";
   li.querySelector('.rating').style.backgroundColor = "rgb(45, 89, 50)";
   li.querySelector('.delete').style.backgroundColor = "rgb(51, 102, 57)";
-  li.querySelector('.edit').style.backgroundColor = "rgb(51, 102, 57)";
+  try{li.querySelector('.edit').style.backgroundColor = "rgb(51, 102, 57)";}
+  catch(e){li.querySelector('.save').style.backgroundColor = "rgb(51, 102, 57)";}
   for(var i=0;i<li.querySelectorAll('.comment').length;++i){
     li.querySelectorAll('.comment')[i].style.backgroundColor = "rgb(51, 102, 57,0.8)";
   }
@@ -21,7 +24,9 @@ function Color(li,rate){
   li.querySelector('.name').style.backgroundColor = "rgba(45, 89, 50,0.6)";
   li.querySelector('.rating').style.backgroundColor = "rgba(45, 89, 50,0.6)";
   li.querySelector('.delete').style.backgroundColor = "rgba(51, 102, 57,1)";
-  li.querySelector('.edit').style.backgroundColor = "rgba(51, 102, 57,1)";
+  try{li.querySelector('.edit').style.backgroundColor = "rgba(51, 102, 57,1)";}
+  catch(e){li.querySelector('.save').style.backgroundColor = "rgba(51, 102, 57,1)";}
+
   for(var i=0;i<li.querySelectorAll('.comment').length;++i){
     li.querySelectorAll('.comment')[i].style.backgroundColor = "rgba(51, 102, 57,0.8)";
   }
@@ -31,7 +36,9 @@ function Color(li,rate){
   li.querySelector('.name').style.backgroundColor = "rgba(45, 89, 50,0.2)";
   li.querySelector('.rating').style.backgroundColor = "rgba(45, 89, 50,0.2)";
   li.querySelector('.delete').style.backgroundColor = "rgba(51, 102, 57,1)";
-  li.querySelector('.edit').style.backgroundColor = "rgba(51, 102, 57,1)";
+  try{li.querySelector('.edit').style.backgroundColor = "rgba(51, 102, 57,1)";}
+  catch(e){li.querySelector('.save').style.backgroundColor = "rgba(51, 102, 57,1)";}
+
   for(var i=0;i<li.querySelectorAll('.comment').length;++i){
     li.querySelectorAll('.comment')[i].style.backgroundColor = "rgba(51, 102, 57,0.8)";
   }
@@ -41,7 +48,9 @@ function Color(li,rate){
   li.querySelector('.name').style.backgroundColor = "rgba(117, 0, 0,0.8)";
   li.querySelector('.rating').style.backgroundColor = "rgba(117, 0, 0,0.8)";
   li.querySelector('.delete').style.backgroundColor = "rgba(156, 0, 0)";
-  li.querySelector('.edit').style.backgroundColor = "rgba(156, 0, 0)";
+  try{li.querySelector('.edit').style.backgroundColor = "rgba(156, 0, 0)";}
+  catch(e){li.querySelector('.save').style.backgroundColor = "rgba(156, 0, 0)";}
+
   for(var i=0;i<li.querySelectorAll('.comment').length;++i){
     li.querySelectorAll('.comment')[i].style.backgroundColor = "rgba(156, 0, 0,0.8)";
   }
@@ -51,7 +60,9 @@ function Color(li,rate){
   li.querySelector('.name').style.backgroundColor = "rgba(117, 0, 0,0.5)";
   li.querySelector('.rating').style.backgroundColor = "rgba(117, 0, 0,0.5)";
   li.querySelector('.delete').style.backgroundColor = "rgba(156, 0, 0)";
-  li.querySelector('.edit').style.backgroundColor = "rgba(156, 0, 0)";
+  try{li.querySelector('.edit').style.backgroundColor = "rgba(156, 0, 0)";}
+  catch(e){li.querySelector('.save').style.backgroundColor = "rgba(156, 0, 0)";}
+
   for(var i=0;i<li.querySelectorAll('.comment').length;++i){
     li.querySelectorAll('.comment')[i].style.backgroundColor = "rgba(156, 0, 0,0.8)";
   }
@@ -173,8 +184,7 @@ list.addEventListener('click',function(e){
   }
   //hide and show MENTEE
 
-  else if(e.target.parentElement.className != 'compress'){
-    // console.log('clicked');
+  else if(e.target.parentElement.className != 'compress' && !ed){
     const x = e.target.parentElement;
     // console.log(x);
     sp = x.querySelector('.compress');
@@ -202,6 +212,7 @@ list.addEventListener('click',function(e){
 
 
 function editDetails(mentee,li){
+  ed = true;
   topdiv = li.querySelectorAll('li > div');
   bottomdiv = li.querySelectorAll('span div');
   no_of_comments = mentee['comment'].length;
@@ -254,7 +265,6 @@ function editDetails(mentee,li){
   const wrapper = document.createElement('div');
   const Span = document.createElement('span');
   Span.classList.add('compress');
-  Span.setAttribute('display','block');
 
   Span.appendChild(Roll);
   Span.appendChild(Dep);
@@ -271,8 +281,11 @@ function editDetails(mentee,li){
 
   li.innerHTML = wrapper.innerHTML;
   // console.log(li);
-  Color(li,mentee['rating']);
+
   const Form = li.querySelector('form');
+  Form.querySelector('.compress').style.display = "block";
+  Color(li,mentee['rate']);
+
   Form.addEventListener('submit',function(e){
     e.preventDefault();
     const details = Form.querySelectorAll('input[type="text"]');
@@ -297,7 +310,7 @@ function editDetails(mentee,li){
 
     li.innerHTML = addToPage(mentee_edit,1);
     Color(li,mentee_edit['rate']);
-
+    ed = false;
   });
 }
 
