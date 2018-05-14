@@ -5,45 +5,72 @@ const list = document.querySelector('#list ul');
 loadAll();
 
 function Color(li,rate){
+  console.log(li);
   if(rate == 5){
   li.style.backgroundColor = "rgb(83, 166, 93)";
   li.querySelector('.name').style.backgroundColor = "rgb(45, 89, 50)";
   li.querySelector('.rating').style.backgroundColor = "rgb(45, 89, 50)";
   li.querySelector('.delete').style.backgroundColor = "rgb(51, 102, 57)";
-  li.querySelector('.edit').style.backgroundColor = "rgb(51, 102, 57)";}
+  li.querySelector('.edit').style.backgroundColor = "rgb(51, 102, 57)";
+  for(var i=0;i<li.querySelectorAll('.comment').length;++i){
+    li.querySelectorAll('.comment')[i].style.backgroundColor = "rgb(51, 102, 57,0.8)";
+  }
+  }
   if(rate == 4){
   li.style.backgroundColor = "rgb(83, 166, 93)";
   li.querySelector('.name').style.backgroundColor = "rgba(45, 89, 50,0.6)";
   li.querySelector('.rating').style.backgroundColor = "rgba(45, 89, 50,0.6)";
   li.querySelector('.delete').style.backgroundColor = "rgba(51, 102, 57,1)";
-  li.querySelector('.edit').style.backgroundColor = "rgba(51, 102, 57,1)";}
+  li.querySelector('.edit').style.backgroundColor = "rgba(51, 102, 57,1)";
+  for(var i=0;i<li.querySelectorAll('.comment').length;++i){
+    li.querySelectorAll('.comment')[i].style.backgroundColor = "rgba(51, 102, 57,0.8)";
+  }
+  }
   if(rate == 3){
   li.style.backgroundColor = "rgb(83, 166, 93)";
   li.querySelector('.name').style.backgroundColor = "rgba(45, 89, 50,0.2)";
   li.querySelector('.rating').style.backgroundColor = "rgba(45, 89, 50,0.2)";
   li.querySelector('.delete').style.backgroundColor = "rgba(51, 102, 57,1)";
-  li.querySelector('.edit').style.backgroundColor = "rgba(51, 102, 57,1)";}
+  li.querySelector('.edit').style.backgroundColor = "rgba(51, 102, 57,1)";
+  for(var i=0;i<li.querySelectorAll('.comment').length;++i){
+    li.querySelectorAll('.comment')[i].style.backgroundColor = "rgba(51, 102, 57,0.8)";
+  }
+  }
   if(rate == 1){
   li.style.backgroundColor = "rgba(194, 0, 0,0.7)";
   li.querySelector('.name').style.backgroundColor = "rgba(117, 0, 0,0.8)";
   li.querySelector('.rating').style.backgroundColor = "rgba(117, 0, 0,0.8)";
   li.querySelector('.delete').style.backgroundColor = "rgba(156, 0, 0)";
-  li.querySelector('.edit').style.backgroundColor = "rgba(156, 0, 0)";}
+  li.querySelector('.edit').style.backgroundColor = "rgba(156, 0, 0)";
+  for(var i=0;i<li.querySelectorAll('.comment').length;++i){
+    li.querySelectorAll('.comment')[i].style.backgroundColor = "rgba(156, 0, 0,0.8)";
+  }
+  }
   if(rate == 2){
   li.style.backgroundColor = "rgba(194, 0, 0,0.7)";
   li.querySelector('.name').style.backgroundColor = "rgba(117, 0, 0,0.5)";
   li.querySelector('.rating').style.backgroundColor = "rgba(117, 0, 0,0.5)";
   li.querySelector('.delete').style.backgroundColor = "rgba(156, 0, 0)";
-  li.querySelector('.edit').style.backgroundColor = "rgba(156, 0, 0)";}
+  li.querySelector('.edit').style.backgroundColor = "rgba(156, 0, 0)";
+  for(var i=0;i<li.querySelectorAll('.comment').length;++i){
+    li.querySelectorAll('.comment')[i].style.backgroundColor = "rgba(156, 0, 0,0.8)";
+  }
+  }
 }
 
 function addToPage(mentee,x){
+  no_of_comments = mentee['comment'].length;
+
   const li = document.createElement('li');
   const name = document.createElement('div');
   const rollno = document.createElement('div');
   const dep = document.createElement('div');
   const rate = document.createElement('div');
-  const comment = document.createElement('div');
+  const comment = [];
+  for(var i=0;i<no_of_comments;++i)
+  {
+    comment.push(document.createElement('div'));
+  }
   const del = document.createElement('div');
   const span = document.createElement('span');
   const edit = document.createElement('div');
@@ -51,7 +78,11 @@ function addToPage(mentee,x){
   name.textContent = mentee.name;
   rollno.textContent = mentee.rollno;
   dep.textContent = mentee.dep;
-  comment.textContent = mentee.comment;
+  for(var i=0;i<no_of_comments;++i)
+  {
+    comment[i].textContent = mentee['comment'][i];
+  }
+
   rate.textContent = mentee.rate;
   del.textContent = "Delete";
   edit.textContent = "Edit";
@@ -60,7 +91,10 @@ function addToPage(mentee,x){
   rollno.classList.add('rollno');
   dep.classList.add('dep');
   rate.classList.add('rating');
-  comment.classList.add('comment');
+  for(var i=0;i<no_of_comments;++i)
+  {
+    comment[i].classList.add('comment');
+  }
   del.classList.add('delete');
   span.classList.add('compress');
   edit.classList.add('edit');
@@ -70,11 +104,16 @@ function addToPage(mentee,x){
   li.appendChild(rate);
   span.appendChild(rollno);
   span.appendChild(dep);
-  span.appendChild(comment);
+  for(var i=0;i<no_of_comments;++i)
+  {
+    span.appendChild(comment[i]);
+  }
   span.appendChild(edit);
   li.appendChild(span);
+
   if(x==0)
-  { Color(li,mentee['rate']);
+  {
+    Color(li,mentee['rate']);
     list.appendChild(li);}
   if(x==1)
   {
@@ -102,6 +141,9 @@ addMentee.addEventListener('submit',function(e){
        rating = i+1;
      }
    }
+   const comm = [];
+   if(details[3].value){
+   comm.push(String(details[3].value));}
 
    //creating json object
    var mentee = {
@@ -109,15 +151,15 @@ addMentee.addEventListener('submit',function(e){
      "rollno" : details[1].value,
      "rate" : rating,
      "dep" : details[2].value,
-     "comment" : details[3].value
+     "comment" : comm
    };
 
    //adding mentee to page
    if(localStorage.getItem(mentee.rollno)==null)
-   {addToPage(mentee,0);}
+   {addToPage(mentee,0);
 
    //storing mentee locally
-   localStorage.setItem(mentee.rollno,JSON.stringify(mentee));
+   localStorage.setItem(mentee.rollno,JSON.stringify(mentee));}
 });
 
 list.addEventListener('click',function(e){
@@ -162,32 +204,47 @@ list.addEventListener('click',function(e){
 function editDetails(mentee,li){
   topdiv = li.querySelectorAll('li > div');
   bottomdiv = li.querySelectorAll('span div');
+  no_of_comments = mentee['comment'].length;
 
   const form = document.createElement('form');
   const br = document.createElement('br');
   const Name = document.createElement('input');
   const Roll = document.createElement('input');
   const Dep = document.createElement('input');
-  const Comm = document.createElement('input');
+  const Comm = [];
+  for(var i=0;i<no_of_comments+1;++i)
+  {
+    Comm.push(document.createElement('input'));
+  }
+
   const Rate = document.createElement('input');
 
   Name.setAttribute('type','text');
   Roll.setAttribute('type','text');
   Dep.setAttribute('type','text');
-  Comm.setAttribute('type','text');
+  for(var i=0;i<no_of_comments+1;++i)
+  {
+    Comm[i].setAttribute('type','text');;
+  }
   Rate.setAttribute('type','text');
 
   Name.setAttribute('value',mentee['name']);
   Roll.setAttribute('value',mentee['rollno']);
   Dep.setAttribute('value',mentee['dep']);
-  Comm.setAttribute('value',mentee['comment']);
+  for(var i=0;i<no_of_comments;++i)
+  {
+    Comm[i].setAttribute('value',mentee['comment'][i]);
+  }
   Rate.setAttribute('value',mentee['rate']);
 
   Name.classList.add('name');
   Roll.classList.add('rollno');
   Dep.classList.add('dep');
   Rate.classList.add('rating');
-  Comm.classList.add('comment');
+  for(var i=0;i<no_of_comments+1;++i)
+  {
+    Comm[i].classList.add('comment');
+  }
 
   const Submit = document.createElement('input');
   Submit.setAttribute('type','submit');
@@ -197,10 +254,14 @@ function editDetails(mentee,li){
   const wrapper = document.createElement('div');
   const Span = document.createElement('span');
   Span.classList.add('compress');
+  Span.setAttribute('display','block');
 
   Span.appendChild(Roll);
   Span.appendChild(Dep);
-  Span.appendChild(Comm);
+  for(var i=0;i<no_of_comments+1;++i)
+  {
+    Span.appendChild(Comm[i]);
+  }
   Span.appendChild(Submit);
   form.appendChild(topdiv[0]);
   form.appendChild(Name);
@@ -209,18 +270,26 @@ function editDetails(mentee,li){
   wrapper.appendChild(form);
 
   li.innerHTML = wrapper.innerHTML;
-  console.log(li);
+  // console.log(li);
   Color(li,mentee['rating']);
   const Form = li.querySelector('form');
   Form.addEventListener('submit',function(e){
     e.preventDefault();
     const details = Form.querySelectorAll('input[type="text"]');
+
+    var comm = [];
+    for(var i=0;i<no_of_comments+1;++i)
+    {
+      if(details[4+i].value.length>0){
+      comm.push(details[4+i].value);}
+    }
+
     var mentee_edit = {
       "name" : details[0].value,
       "rollno" : details[2].value,
       "rate" : details[1].value,
       "dep" : details[3].value,
-      "comment" : details[4].value
+      "comment" : comm
     };
 
     localStorage.removeItem(mentee.rollno);
