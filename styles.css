@@ -4,10 +4,18 @@ body{
   letter-spacing: 1px;
 
 }
+@keyframes appear{
+    from{opacity: 0;}
+    to{opacity: 1;}
+}
+
 h1, h2{
   font-weight: normal;
   text-align: center;
   color: white;
+    animation-name: appear;
+  animation-duration: 1.5s;
+  
 }
 h2{
   display: none;
@@ -52,6 +60,8 @@ h2{
   cursor: pointer;
   padding: 6px;
   background-color: rgba(62, 96, 111,1);
+  animation-name: moveinfromleft;
+  animation-duration: 1.2s;
 }
 
 #add{
@@ -62,6 +72,8 @@ h2{
   display:inline-block;
   background-color: rgba(62, 96, 111,1);
   padding: 4px;
+  animation-name: moveinfromright;
+  animation-duration: 0.8s;
 }
 #add_mentee p{
   width: 6%;
@@ -107,6 +119,15 @@ h2{
   padding:1vw;
 
 }
+@keyframes moveinfromright{
+    from{transform:translate(50vw,0);}
+    to{transform: translate(0,0);}
+}
+@keyframes moveinfromleft{
+    from{transform:translate(-50vw,0);}
+    to{transform: translate(0,0);}
+}
+
 #list li{
   /* border: 1px solid blue; */
   overflow: hidden;
@@ -118,6 +139,8 @@ h2{
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   margin: 5px;
+  animation-name: moveinfromright;
+  animation-duration: 1.2s;
   /* height: 120px; */
 }
 .compress{
@@ -306,7 +329,7 @@ h2{
 }
 .rating{
   padding: 6px;
-  width: 7%;
+  width: 5%;
   float: left;
   background-color: rgba(200,0,0,0.9);
   color: white;
