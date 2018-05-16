@@ -312,14 +312,14 @@ icon.addEventListener('click',function(e){
     e.target.textContent = 'remove';
     e.target.parentElement.querySelector('h2').style.display = 'block';
     e.target.parentElement.querySelector('form').style.display = 'block';
-    e.target.parentElement.style.width = '25%';
+//    e.target.parentElement.style.width = '25%';
     document.querySelector('#list').style.float = 'right';
   }
   else{
     e.target.textContent = 'add';
     e.target.parentElement.querySelector('h2').style.display = 'none';
     e.target.parentElement.querySelector('form').style.display = 'none';
-    e.target.parentElement.style.width = '2.2%';
+//    e.target.parentElement.style.width = '2.2%';
     document.querySelector('#list').style.float = 'left';
   }
 });
